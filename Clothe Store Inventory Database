@@ -1,0 +1,42 @@
+-- Create a Clothes Store DATABASE;
+
+Create Table shirts (
+   id INTEGER Primary Key,
+    name  text,
+    brand  text,
+    size  text,
+    gender text,
+    price Numeric,
+    quantity INTEGER);
+    
+    Insert into shirts Values 
+    (1,'RocaWear Blue T-Shirt', 'RocaWear','S','Mens',24.99, 5),
+    (2,'RocaWear Blue T-Shirt', 'RocaWear','M','Mens',24.99, 5),
+    (3,'RocaWear Blue T-Shirt', 'RocaWear','L','Mens',24.99, 5),
+    (4,'RocaWear Black T-Shirt', 'RocaWear','S','Mens',24.99, 5),
+    (5,'RocaWear Black T-Shirt', 'RocaWear','M','Mens',24.99, 5),
+    (6,'RocaWear Black T-Shirt', 'RocaWear','L','Mens',24.99, 5),
+    (7,'Puma Blue T-Shirt', 'Puma','S','Mens',19.99, 5),
+    (8,'Puma Blue T-Shirt', 'Puma','M','Mens',19.99, 5),
+    (9,'Puma Blue T-Shirt', 'Puma','L','Mens',19.99, 5),
+     (10,'Puma Black T-Shirt', 'Puma','S','Mens',19.99, 5),
+    (11,'Puma Black T-Shirt', 'Puma','M','Mens',19.99, 5),
+    (12,'Puma Black T-Shirt', 'Puma','L','Mens',19.99, 5),
+    (13,'Nike Black T-shirt','Nike', 'S','Mens',29.99,5 ),
+    (14,'Nike Black T-shirt','Nike', 'M','Mens',29.99,5 ),
+     (15,'Nike Black T-shirt','Nike', 'L','Mens',29.99,5 )
+    ;
+    
+-- Show all products From most Expensive to Least --      
+Select *
+From shirts
+Order By price DESC;
+
+-- Show the Total Inventory per product Brand--
+Select 
+    brand,
+    Sum(quantity) AS Total_inventory
+From shirts
+Group By brand;
+
+    
