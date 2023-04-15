@@ -1,0 +1,57 @@
+#In this SQL code, I'm querying a database that's holding Nexflix data to answer questions about the data. 
+-- 
+-- SELECT 
+-- n_t_i.title AS "Movie Title",
+-- n_p.cast AS "Movie Cast",
+-- n_p.director AS "Director",
+-- n_t_i.release_year AS  "R_Year"
+-- FROM "CharlotteChaze/BreakIntoTech"."netflix_people" AS n_p
+-- Left Join "CharlotteChaze/BreakIntoTech"."netflix_titles_info" AS n_t_i
+-- ON n_p.show_id = n_t_i.show_id
+-- ;
+
+-- How many movie titles are there in the database? (movies only, not tv shows) --
+-- 
+Select 
+--       Count(*)
+-- FROM "CharlotteChaze/BreakIntoTech"."netflix_titles_info" 
+-- Where type = 'Movie'
+-- ;
+
+
+--When was the most recent batch of tv shows and/or movies added to the database? --
+--
+Select 
+--     Max(date(date_added))
+-- FROM "CharlotteChaze/BreakIntoTech"."netflix_titles_info" 
+-- ;
+
+-- List all the movies and tv shows in alphabetical order. 
+-- 
+Select
+--     title,
+--     type
+-- From "CharlotteChaze/BreakIntoTech"."netflix_titles_info" 
+-- Order by title ASC
+-- ;
+
+
+---Who was the Director for the movie Bright Star? 
+-- 
+SELECT 
+--  n_p.director AS "Director",
+-- n_t_i.title 
+-- FROM "CharlotteChaze/BreakIntoTech"."netflix_people" AS n_p
+-- Left Join "CharlotteChaze/BreakIntoTech"."netflix_titles_info" AS n_t_i
+-- ON n_p.show_id = n_t_i.show_id
+-- Where n_t_i.title  = 'Bright Star';
+
+--What is the oldest movie in the database and what year was it made? 
+-- 
+Select
+--     title AS "Movie Title",
+--     release_year AS "R_Year"
+-- From "CharlotteChaze/BreakIntoTech"."netflix_titles_info"
+-- where type = 'Movie'
+-- Order by release_year ASC
+-- Limit 1;
