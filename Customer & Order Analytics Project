@@ -1,0 +1,85 @@
+--Customer & Order Analytics Project 
+
+--How many orders were placed in January?
+
+
+/*Select 
+    Count(orderID)
+From  BIT_DB.JanSales
+Where orderID <> 'Order ID'
+AND orderID IS NOT NULL
+AND  length(orderid) = 6
+ ;*/
+ 
+
+/*How many of those orders were for an iPhone?*/ 
+/*Select 
+    Count(JanSales.Product)
+From BIT_DB.JanSales
+Where Product = "iPhone"
+AND orderID <> 'Order ID'
+AND orderID IS NOT NULL
+AND  length(orderid) = 6
+;*/
+
+
+
+/*Select the customer account numbers for all the orders that were placed in February. */
+
+/*Select
+   Distinct(acctnum)
+From BIT_DB.customers AS c
+Inner Join BIT_DB.FebSales AS fs
+    ON c.order_id = fs.orderID
+Where orderID <> 'Order ID'
+AND orderID IS NOT NULL
+AND  length(orderid) = 6
+Limit 5
+    ;*/
+    
+/*Which product was the cheapest one sold in January, and what was the price? */
+
+/*Select 
+Distinct product, price
+From BIT_DB.JanSales 
+Where price <> 'Price Each'
+AND price IS NOT NULL
+Group by product 
+Order by price 
+Limit 1;*/
+
+--What is the total revenue for each product sold in January? (Revenue can be calculated using the number of products sold and the price of the products)
+
+--Select
+--    product,
+--    Round(Sum(Quantity) * price, 0) AS Revenue
+--From BIT_DB.JanSales
+--Where product <> 'Product'
+--Group By product
+--Having Revenue > 0
+--Order by Revenue Desc
+--;
+
+--Which products were sold in February at 548 Lincoln St, Seattle, WA 98101, how many of each were sold, and what was the total revenue?
+--
+--Select 
+--    Product,
+--    location As Address,
+--    quantity,
+--    SUM(quantity) * price AS Revenue
+--FROM BIT_DB.FebSales
+--Where location = '548 Lincoln St, Seattle, WA 98101'
+--Group by product;
+
+/*How many customers ordered more than 2 products at a time in February, and what was the average amount spent for those customers? */
+
+Select  
+    Count(Distinct c.acctnum) Num_cust,
+    Round(AVG(quantity * price), 0) Avg_Price 
+From BIT_DB.FebSales AS fs 
+Left Join BIT_DB.customers AS c 
+    ON fs.orderID = c.order_id 
+WHERE fs.quantity > 2
+AND length(orderid) = 6 
+AND orderid <> 'Order ID'
+;
