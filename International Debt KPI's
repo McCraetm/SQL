@@ -1,0 +1,48 @@
+-- This is code I wrote While looking up certain Data point related to International Debt
+
+
+
+-- Show all of the distinct countries listed within this data.
+SELECT 
+    COUNT(DISTINCT international_debt.country_name) AS total_distinct_countries
+FROM international_debt;
+
+-- Show the distinct debt indicators and order them by the indicator code.
+SELECT 
+    DISTINCT international_debt.indicator_code AS distinct_debt_indicators
+FROM international_debt
+ORDER BY distinct_debt_indicators;
+
+-- Show the total amount of debt owed by all the countries present within the data
+SELECT 
+    ROUND(SUM(international_debt.debt)/1000000, 2) AS total_debt
+FROM international_debt; 
+
+-- Show the country that has the highest amount of debt
+SELECT 
+    international_debt.country_name, 
+    SUM(international_debt.debt) AS total_debt
+FROM international_debt
+GROUP BY country_name
+ORDER BY total_debt DESC
+LIMIT 1;
+
+-- Show what is the average amount of debt across different debt indicators but only the top 10
+SELECT 
+    international_debt.indicator_code AS debt_indicator,
+    international_debt.indicator_name,
+    AVG(international_debt.debt) AS average_debt
+FROM international_debt
+GROUP BY debt_indicator, indicator_name
+ORDER BY average_debt DESC
+LIMIT 10;
+
+-- Show what is the highest amount of principal repayments in the "DT.AMT.DLXF.CD" category
+SELECT 
+    international_debt.country_name, 
+    international_debt.indicator_name
+FROM international_debt
+WHERE debt = (SELECT 
+                  MAX(debt)
+              FROM international_debt
+              WHERE indicator_code='DT.AMT.DLXF.CD');
